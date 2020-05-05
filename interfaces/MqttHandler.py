@@ -1,11 +1,8 @@
 #!/usr/bin/env python
-import paho.mqtt
 import paho.mqtt.client as mqtt
 from paho.mqtt import publish
 import logging
 import threading
-import time
-import sys
 import copy
 import json
 
