@@ -1,5 +1,6 @@
 import unittest
 import sys
+import copy
 sys.path.insert(0, './')  # noqa
 sys.path.insert(0, './interfaces')  # noqa
 
@@ -15,16 +16,18 @@ class TestGoodComponent(Component):
 
 
 conf = {
+    "component_name": "test",
     "comm_iface": {
         "host": "localhost",
         "port": 1883,
         "timeout": 60,
         "subscribe": [
             "/DMKernel/Commands"
-        ],
-        "publish": "/DMKernel/Info"
+        ]
     }
 }
+
+msg = dict(payload=dict(command="command"), topic="test")
 
 
 class TestMqttHand(unittest.TestCase):
@@ -49,3 +52,44 @@ class TestMqttHand(unittest.TestCase):
     def test_CTOR_conf(self):
         ins = TestGoodComponent(conf)
         self.assertEqual(ins.conf_, conf)
+
+    def test_CTOR_wrong_conf(self):
+        aux = copy.deepcopy(conf)
+        del aux["component_name"]
+        try:
+            ins = TestGoodComponent(aux)
+            print(ins)
+            self.assertEqual(True, False)
+        except RuntimeError:
+            self.assertEqual(True, True)
+
+    def test_msg_validation(self):
+        ins = TestGoodComponent(conf)
+        self.assertEqual(ins.msg_validation(dict(command="command",
+                                                 timestamp=1,
+                                                 source="source",
+                                                 data=dict())), True)
+
+    def test_get_command(self):
+        ins = TestGoodComponent(conf)
+        self.assertEqual(ins.get_command(msg), "command")
+
+    def test_get_command_wrong(self):
+        ins = TestGoodComponent(conf)
+        try:
+            ins.get_command(dict())
+            self.assertEqual(True, False)
+        except KeyError:
+            self.assertEqual(True, True)
+
+    def test_get_topic(self):
+        ins = TestGoodComponent(conf)
+        self.assertEqual(ins.get_topic(msg), "test")
+
+    def test_get_topic_wrong(self):
+        ins = TestGoodComponent(conf)
+        try:
+            ins.get_topic(dict())
+            self.assertEqual(True, False)
+        except KeyError:
+            self.assertEqual(True, True)
