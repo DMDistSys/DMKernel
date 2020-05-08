@@ -1,4 +1,10 @@
-#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+"""MqttHandler class implementation.
+
+Handler to connect component through MQTT protocol.
+
+"""
+
 import paho.mqtt.client as mqtt
 from paho.mqtt import publish
 import logging
@@ -6,13 +12,29 @@ import threading
 import copy
 import json
 
-__author__ = "dcpulido91@gmail.com"
-
 
 class MqttHandler(threading.Thread):
+    """MqttHandler class implementation.
+
+    Attributes:
+        conf (dict): configuration parameters.
+        connected (bool): flag connected.
+        client (mqtt.Client): wrapped mqtt client.
+        callback_ (func): callback function to call once a message arrives.
+        buffer (list): buffer for sync mode.
+
+    """
+
     def __init__(self,
                  conf=None,
                  callback=None):
+        """CTOR.
+
+        Args:
+            conf (dict): kernel configuration parameters.
+            callback (func): callback to call once a message is received.
+
+        """
         threading.Thread.__init__(self)
         if conf is not None:
             self.conf = conf
@@ -27,6 +49,7 @@ class MqttHandler(threading.Thread):
         self.buffer = []
 
     def run(self):
+        """Main function of the thread."""
         self.client.on_connect = self.on_connect
         self.client.on_message = self.on_message
         self.client.connect(self.conf["host"],
@@ -42,12 +65,14 @@ class MqttHandler(threading.Thread):
                    userdata,
                    flags,
                    rc):
+        """Callback on connect."""
         self.connected = True
 
     def on_message(self,
                    client,
                    userdata,
                    msg):
+        """Callback on message."""
         payload = json.loads(msg.payload)
         message = dict(topic=msg.topic,
                        payload=payload)
@@ -60,19 +85,22 @@ class MqttHandler(threading.Thread):
                    path,
                    payload,
                    host="localhost"):
+        """Sends message."""
         if host is not None:
-            hh = host
+            hst_ = host
         else:
-            hh = self.conf["host"]
+            hst_ = self.conf["host"]
         publish.single(path,
                        payload,
-                       hostname=hh)
+                       hostname=hst_)
 
     def get_buffer(self):
+        """Returns stored buffer."""
         toret = copy.deepcopy(self.buffer)
         self.buffer = []
         return toret
 
     def stop(self):
+        """Stops the iface."""
         self.client.disconnect()
         self.connected = False

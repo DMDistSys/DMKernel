@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+"""Configuration Schemas.
+
+Schemas to validate configuration parameters.
+
+"""
+
 from schema import Schema, And, Use
 
 mqtt_iface_conf_schema = Schema({
