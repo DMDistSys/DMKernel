@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+"""Msg Schemas.
+
+Schemas to validate messages.
+
+"""
+
 from schema import Schema, Use
 
 command_msg_schema = Schema({
