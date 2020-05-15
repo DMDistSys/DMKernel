@@ -17,6 +17,7 @@ class TestGoodComponent(Component):
 
 conf = {
     "component_name": "test",
+    "monitor_topic": "test",
     "comm_iface": {
         "host": "localhost",
         "port": 1883,
@@ -24,7 +25,8 @@ conf = {
         "subscribe": [
             "/DMKernel/Commands"
         ]
-    }
+    },
+    "component_conf": {}
 }
 
 msg = dict(payload=dict(command="command"), topic="test")

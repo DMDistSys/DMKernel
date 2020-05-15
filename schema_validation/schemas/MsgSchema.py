@@ -5,11 +5,11 @@ Schemas to validate messages.
 
 """
 
-from schema import Schema, Use
+from schema import Schema, Use, Optional
 
 command_msg_schema = Schema({
     "source": Use(str),
     "command": Use(str),
-    "timestamp": Use(int),
-    "data": Use(dict)
+    "timestamp": Use(float),
+    "data": Optional(Use(dict))
 })
