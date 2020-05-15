@@ -84,7 +84,7 @@ class MqttHandler(threading.Thread):
     def on_publish(self,
                    path,
                    payload,
-                   host="localhost"):
+                   host=None):
         """Sends message."""
         if host is not None:
             hst_ = host

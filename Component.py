@@ -107,5 +107,7 @@ class Component(ABC):
         if self.msg_validation(msg):
             self.iface_.on_publish(
                 topic, json.dumps(msg))
+            return True
         else:
-            logging.error("Incorrect msg format")
+            logging.error("Incorrect msg format: \n" + json.dumps(msg, indent=2))
+        return False
