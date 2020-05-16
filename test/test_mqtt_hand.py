@@ -3,7 +3,7 @@ import sys
 import time
 sys.path.insert(0, '../')  # noqa
 sys.path.insert(0, './interfaces')  # noqa
-from MqttHandler import MqttHandler
+from MqttHandler import MqttHandler  # noqa
 
 
 class TestMqttHand(unittest.TestCase):

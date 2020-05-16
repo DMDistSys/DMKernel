@@ -13,10 +13,10 @@ import sys
 sys.path.insert(0, './interfaces')  # noqa
 sys.path.insert(0, './schema_validation')  # noqa
 
-from MqttHandler import MqttHandler
-from SchemaValidator import SchemaValidator
+from MqttHandler import MqttHandler  # noqa
+from SchemaValidator import SchemaValidator  # noqa
 
-from abc import ABC, abstractmethod
+from abc import ABC, abstractmethod  # noqa
 
 
 class Component(ABC):
@@ -109,5 +109,6 @@ class Component(ABC):
                 topic, json.dumps(msg))
             return True
         else:
-            logging.error("Incorrect msg format: \n" + json.dumps(msg, indent=2))
+            logging.error("Incorrect msg format: \n" +
+                          json.dumps(msg, indent=2))
         return False

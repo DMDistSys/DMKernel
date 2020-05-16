@@ -2,7 +2,7 @@ import unittest
 import sys
 
 sys.path.insert(0, './schema_validation')  # noqa
-from SchemaValidator import SchemaValidator
+from SchemaValidator import SchemaValidator  # noqa
 
 
 class TestSchemaValidator(unittest.TestCase):

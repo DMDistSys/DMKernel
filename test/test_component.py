@@ -4,7 +4,7 @@ import copy
 sys.path.insert(0, './')  # noqa
 sys.path.insert(0, './interfaces')  # noqa
 
-from Component import Component
+from Component import Component  # noqa
 
 
 class TestGoodComponent(Component):
