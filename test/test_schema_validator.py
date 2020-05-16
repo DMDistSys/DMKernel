@@ -2,7 +2,7 @@ import unittest
 import sys
 
 sys.path.insert(0, './schema_validation')  # noqa
-from SchemaValidator import SchemaValidator
+from SchemaValidator import SchemaValidator  # noqa
 
 
 class TestSchemaValidator(unittest.TestCase):
@@ -21,6 +21,8 @@ class TestSchemaValidator(unittest.TestCase):
     def test_conf_kernel_OK(self):
         val = SchemaValidator()
         self.assertEqual(val.validate_schema(dict(component_name="component_name",
+                                                  component_conf=dict(),
+                                                  monitor_topic="test",
                                                   comm_iface=dict(
                                                       host="host",
                                                       port="1",
