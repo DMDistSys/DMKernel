@@ -8,8 +8,8 @@ correct formats.
 
 from schema import SchemaError
 
-from schemas.MsgSchema import command_msg_schema
-from schemas.ConfSchema import kernel_conf_schema
+from .schemas.MsgSchema import command_msg_schema # noqa
+from .schemas.ConfSchema import kernel_conf_schema # noqa
 
 
 class SchemaValidator:
