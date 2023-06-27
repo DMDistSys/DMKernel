@@ -9,12 +9,8 @@ middleware features.
 import json
 import logging
 
-import sys
-sys.path.insert(0, './interfaces')  # noqa
-sys.path.insert(0, './schema_validation')  # noqa
-
-from MqttHandler import MqttHandler  # noqa
-from SchemaValidator import SchemaValidator  # noqa
+from .interfaces.MqttHandler import MqttHandler  # noqa
+from .schema_validation.SchemaValidator import SchemaValidator  # noqa
 
 from abc import ABC, abstractmethod  # noqa
 
